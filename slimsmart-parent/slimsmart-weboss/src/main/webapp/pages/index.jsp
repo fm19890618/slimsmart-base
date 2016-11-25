@@ -70,6 +70,8 @@ indexBoss.cache.backUser={
 			<iframe id="mainFrame" name="mainFrame" class="main-container-div"
 				src="" style="height: 96%; width: 96%;"></iframe>
 		</div>
+		<!-- <div id="tt" class="easyui-tabs" style="width:100%;height:850px">
+		</div> -->
 		<div data-options="region:'south'"
 			style="height: 30px; width: 100%; padding-top: 8px; background-color: #F5F5F5">
 			<%@ include file="/pages/common/footer.jsp"%>

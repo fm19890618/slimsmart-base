@@ -167,6 +167,23 @@ $.extend(true, indexBoss,
 							}
 							// 打开ur
 							$("#mainFrame").attr("src",REQUEST_URL+_this.pageUrl);
+							
+							/*$('#tt').tabs('add',{
+							    title:'New Tab',
+							    href: REQUEST_URL+_this.pageUrl,
+							    width: '96%',
+							    heigth: '99%',
+							    //content:'iframe id="mainFrame" name="mainFrame" class="main-container-div" src="'+REQUEST_URL+_this.pageUrl+'" style="height: 96%; width: 96%;"></iframe>',
+							    closable:true,	
+							    tools:[{
+							        iconCls:'icon-mini-refresh',
+							        handler:function(){
+							            alert('refresh');
+							        }
+							    }]
+							});*/
+							
+							
 						});
 						if(j==0){
 							sumItem.click();
