@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.slimsmart.model.bus.voice.VoiceLocation" >
+  <resultMap id="BaseResultMap" type="com.slimsmart.model.bus.voice.VoiceLocation" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="lon" property="lon" jdbcType="VARCHAR" />
+    <result column="lat" property="lat" jdbcType="VARCHAR" />
+    <result column="addr" property="addr" jdbcType="VARCHAR" />
+    <result column="location_desc" property="locationDesc" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="CHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id,lon, lat,addr, location_desc, user_id, create_date 
+  </sql>
+   
+  <select id="get" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_perm
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  
+ 
+  <insert id="insert" parameterType="com.slimsmart.model.bus.voice.VoiceLocation" >
+    insert into t_bus_voice_location (id,lon, lat,addr, location_desc, user_id, create_date )
+    values (#{id,jdbcType=VARCHAR}, #{lon,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, 
+      #{addr,jdbcType=VARCHAR},#{locationDesc,jdbcType=VARCHAR},#{userId,jdbcType=CHAR}
+      ,now())
+  </insert>
+  
+   
+  
+</mapper>

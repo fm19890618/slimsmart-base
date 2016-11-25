@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.slimsmart.model.bus.voice.Voice" >
+  <resultMap id="BaseResultMap" type="com.slimsmart.model.bus.voice.Voice" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="min_voice_db" property="minVoiceDb" jdbcType="INTEGER" />
+    <result column="voice_db" property="voiceDb" jdbcType="INTEGER" />
+    <result column="max_voice_db" property="maxVoiceDb" jdbcType="INTEGER" />
+    <result column="voice_str" property="voiceStr" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="CHAR" />
+    <result column="location_id" property="locationId" jdbcType="CHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id,min_voice_db, voice_db,max_voice_db, user_id, location_id, create_date 
+  </sql>
+   
+  <select id="get" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_perm
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  
+ 
+  <insert id="insert" parameterType="com.slimsmart.model.bus.voice.Voice" >
+    insert into t_bus_voice (id, voice_db, user_id, 
+      location_id,min_voice_db,max_voice_db,voice_str,is_task,is_release,create_date)
+    values (#{id,jdbcType=VARCHAR}, #{voiceDb,jdbcType=INTEGER}, #{userId,jdbcType=CHAR}, 
+      #{locationId,jdbcType=CHAR},#{minVoiceDb,jdbcType=INTEGER},#{maxVoiceDb,jdbcType=INTEGER}
+      ,#{voiceStr,jdbcType=VARCHAR},#{isTask,jdbcType=INTEGER},#{isRelease,jdbcType=INTEGER}, now())
+  </insert>
+  
+  <select id="selectVoiceAndLocation" resultType="java.util.HashMap" parameterType="com.slimsmart.common.model.VoiceQueryVo">
+  	select vl.id id,vl.lat lat,vl.lon lon,vl.addr addr,vl.location_desc locationDesc,
+  	v.min_voice_db minVoiceDb,v.voice_db voiceDb,v.max_voice_db maxVoiceDb,v.id voiceId,v.is_task isTask,v.is_release isRelease 
+  	from t_bus_voice v,t_bus_voice_location vl where v.location_id = vl.id 
+  	and v.is_task = #{isTask,jdbcType=INTEGER} and v.is_release = #{isRelease,jdbcType=INTEGER} 
+  	<if test="addr != null" >
+      and  vl.addr like concat('%',#{addr,jdbcType=VARCHAR},'%') 
+    </if>
+    <if test="userId != null">
+      and v.user_id = #{userId,jdbcType=VARCHAR}
+    </if>
+      order by vl.create_date desc
+    <if test="rows != 0 ">
+      limit #{start},#{rows}
+    </if>
+    
+  </select>
+  
+   
+  
+</mapper>
