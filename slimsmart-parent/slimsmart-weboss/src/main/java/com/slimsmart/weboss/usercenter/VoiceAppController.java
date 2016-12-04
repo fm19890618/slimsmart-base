@@ -42,7 +42,11 @@ public class VoiceAppController{
 		Voice v = getVoiceArr(map.get("voice"));
 		VoiceLocation vl = parseJson(map.get("location"));
 		v.setLocationId(vl.getId());
+		v.setIsRelease(Integer.parseInt(map.get("isRelease")));
+		v.setIsTask(Integer.parseInt(map.get("isTask")));
+		v.setUserId(map.get("userId"));
 		voiceService.save(v);
+		vl.setUserId(v.getUserId());
 		voiceLocationService.save(vl);
 		
 		return "ok";
@@ -50,11 +54,8 @@ public class VoiceAppController{
 	
 	@RequestMapping("getVoiceLocationInfo")
 	@ResponseBody
-	public Map<String,Object> getVoiceLocationInfo(VoiceQueryVo vo){
-		Map<String,Object> result = new HashMap<String,Object>();
-		result.put("result", "success");
-		result.put("data", voiceService.getLocationAndVoice(vo));
-		return result;
+	public Map<String,Object> getVoiceLocationInfo(HttpServletRequest request,VoiceQueryVo vo){
+		return voiceService.getLocationAndVoice(vo);
 	}
 	
 	
