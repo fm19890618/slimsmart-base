@@ -8,5 +8,5 @@ import com.slimsmart.common.service.BaseService;
 import com.slimsmart.model.bus.voice.Voice;
 
 public interface VoiceService extends BaseService<Voice> {
-	public List<Map<String,Object>> getLocationAndVoice(VoiceQueryVo vo);
+	public Map<String,Object> getLocationAndVoice(VoiceQueryVo vo);
 }
