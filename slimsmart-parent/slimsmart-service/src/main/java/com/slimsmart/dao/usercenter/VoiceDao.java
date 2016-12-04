@@ -15,4 +15,8 @@ public class VoiceDao extends MyBatisDao<Voice> {
 		
 		return findList("selectVoiceAndLocation", vo);
 	}
+	
+	public long getLocationAndVoiceTotal(VoiceQueryVo vo){
+		return count("selectVoiceAndLocationTotal", vo);
+	}
 }

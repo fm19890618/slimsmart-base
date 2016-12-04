@@ -1,6 +1,7 @@
 package com.slimsmart.service.bus.voice;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,14 +20,17 @@ public class VoiceServiceImpl extends AbstractBaseService<Voice> implements Voic
 	@Autowired
 	private VoiceDao voiceDao;
 	@Override
-	public List<Map<String, Object>> getLocationAndVoice(VoiceQueryVo vo) {
+	public Map<String, Object> getLocationAndVoice(VoiceQueryVo vo) {
+		Map<String, Object> map = new HashMap<String,Object>();
 		if(vo.getPage() != 0){
 			if(vo.getRows() == 0){
-				vo.setRows(15);
+				vo.setRows(20);
 			}
 			vo.setStart((vo.getPage()-1)*vo.getRows());
 		}
-		return voiceDao.getLocationAndVoice(vo);
+		map.put("data", voiceDao.getLocationAndVoice(vo));
+		map.put("total", voiceDao.getLocationAndVoiceTotal(vo));
+		return map;
 	}
 
 	

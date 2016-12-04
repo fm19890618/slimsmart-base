@@ -32,7 +32,17 @@
       #{locationId,jdbcType=CHAR},#{minVoiceDb,jdbcType=INTEGER},#{maxVoiceDb,jdbcType=INTEGER}
       ,#{voiceStr,jdbcType=VARCHAR},#{isTask,jdbcType=INTEGER},#{isRelease,jdbcType=INTEGER}, now())
   </insert>
-  
+  <select id="selectVoiceAndLocationTotal" resultType="java.lang.Integer" parameterType="com.slimsmart.common.model.VoiceQueryVo">
+  	select count(vl.id) total  
+  	from t_bus_voice v,t_bus_voice_location vl where v.location_id = vl.id 
+  	and v.is_task = #{isTask,jdbcType=INTEGER} and v.is_release = #{isRelease,jdbcType=INTEGER} 
+  	<if test="addr != null" >
+      and  vl.addr like concat('%',#{addr,jdbcType=VARCHAR},'%') 
+    </if>
+    <if test="userId != null">
+      and v.user_id = #{userId,jdbcType=VARCHAR}
+    </if>
+  </select>
   <select id="selectVoiceAndLocation" resultType="java.util.HashMap" parameterType="com.slimsmart.common.model.VoiceQueryVo">
   	select vl.id id,vl.lat lat,vl.lon lon,vl.addr addr,vl.location_desc locationDesc,
   	v.min_voice_db minVoiceDb,v.voice_db voiceDb,v.max_voice_db maxVoiceDb,v.id voiceId,v.is_task isTask,v.is_release isRelease 
