@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slimsmart.model.taobao.SearchKey" >
+  <resultMap id="BaseResultMap" type="com.slimsmart.model.taobao.SearchKey" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="searchKey" property="searchKey" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id,searchKey, createTime 
+  </sql>
+   
+  <select id="get" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wbl_shop_msg
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+ <insert id="insert" parameterType="com.slimsmart.model.taobao.SearchKey" >
+    insert into wbl_search_key (id,searchKey, createTime)   
+	    values  
+	     (#{id,jdbcType=VARCHAR}, #{searchKey,jdbcType=VARCHAR},now() )
+  </insert>
+  
+  
+  
+  <select id="findList" resultMap="BaseResultMap" parameterType="map">
+    select 
+     <include refid="Base_Column_List" />
+     from wbl_search_key t
+    
+    order by t.createTime desc limit 0,30
+  </select>
+  
+   
+  
+</mapper>

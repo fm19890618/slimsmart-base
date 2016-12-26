@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slimsmart.model.taobao.Shop" >
+  <resultMap id="BaseResultMap" type="com.slimsmart.model.taobao.Shop" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="shopName" property="shopName" jdbcType="VARCHAR" />
+    <result column="shopUrl" property="shopUrl" jdbcType="VARCHAR" />
+    <result column="wangwang" property="wangwang" jdbcType="VARCHAR" />
+    <result column="sellWhat" property="sellWhat" jdbcType="VARCHAR" />
+    <result column="sellNum" property="sellNum" jdbcType="VARCHAR" />
+    <result column="productNum" property="productNum" jdbcType="VARCHAR" />
+    <result column="provinceId" property="provinceId" jdbcType="VARCHAR" />
+    <result column="provinceName" property="provinceName" jdbcType="VARCHAR" />
+    <result column="cityId" property="cityId" jdbcType="VARCHAR" />
+    <result column="cityName" property="cityName" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="telphone" property="telphone" jdbcType="VARCHAR" />
+    <result column="goodratePercent" property="goodratePercent" jdbcType="VARCHAR" />
+    <result column="searchKey" property="searchKey" jdbcType="VARCHAR" />
+    <result column="searchKeyId" property="searchKeyId" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id,shopName, shopUrl,wangwang, sellWhat, sellNum, productNum, provinceId,provinceName,cityId,cityName,level,telphone,goodratePercent,searchKey,searchKeyId,createTime 
+  </sql>
+   
+  <select id="get" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wbl_shop_msg
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <insert  id="batchInsert" parameterType="java.util.List"> 
+	  	<selectKey resultType="java.lang.String" keyProperty="id" order="AFTER">  
+	        SELECT  
+	        LAST_INSERT_ID()  
+	    </selectKey> 
+	    insert into wbl_shop_msg (id,shopName, shopUrl,wangwang, sellWhat, sellNum, productNum, provinceId,provinceName,cityId,cityName,level,telphone,goodratePercent,searchKey,searchKeyId,createTime)   
+	    values  
+	    <foreach collection="list" item="item" index="index" separator="," >  
+	        (#{item.id},#{item.shopName},#{item.shopUrl},#{item.wangwang},#{item.sellWhat},#{item.sellNum},#{item.productNum},#{item.provinceId},#{item.provinceName},#{item.cityId}
+	        ,#{item.cityName},#{item.level},#{item.telphone},#{item.goodratePercent},#{item.searchKey},#{item.searchKeyId},now())  
+	    </foreach>  
+	
+	</insert >  
+ <insert id="insert" parameterType="com.slimsmart.model.usercenter.Perm" >
+    insert into wbl_shop_msg (id,shopName, shopUrl,wangwang, sellWhat, sellNum, productNum, provinceId,provinceName,cityId,cityName,level,telphone,goodratePercent,searchKey,searchKeyId,createTime)   
+	    values  
+	     (#{id,jdbcType=VARCHAR}, #{shopName,jdbcType=VARCHAR}, #{shopUrl,jdbcType=VARCHAR}, 
+      #{wangwang,jdbcType=VARCHAR}, #{sellWhat,jdbcType=VARCHAR},#{sellNum,jdbcType=VARCHAR},#{productNum,jdbcType=VARCHAR},#{provinceId,jdbcType=VARCHAR},#{provinceName,jdbcType=VARCHAR},
+      #{cityId,jdbcType=VARCHAR},#{cityName,jdbcType=VARCHAR},#{level,jdbcType=VARCHAR},#{telphone,jdbcType=VARCHAR},#{goodratePercent,jdbcType=VARCHAR},#{searchKey,jdbcType=VARCHAR},#{searchKeyId,jdbcType=VARCHAR},now() )
+  </insert>
+  
+  
+  <select id="count" resultType="long" parameterType="map">
+    select count(*) from wbl_shop_msg t
+    <where>
+    	<include refid="selectWhereClause" />
+    </where>
+  </select>
+  
+  <select id="findLsit" resultMap="BaseResultMap" parameterType="map">
+    select 
+     <include refid="Base_Column_List" /> 
+    
+    from wbl_shop_msg t
+    <where>
+    	<include refid="selectWhereClause" />
+    </where>
+    order by t.createTime desc
+  </select>
+  
+  <select id="findPage" resultMap="BaseResultMap" parameterType="map">
+    select 
+     <include refid="Base_Column_List" /> 
+    
+    from wbl_shop_msg t
+    <where>
+    	<include refid="selectWhereClause" />
+    </where>
+    order by t.createTime desc
+  </select>
+  
+  
+  <sql id="selectWhereClause">
+   		<if test="shopName!=null">
+   			and t.shopName like concat('%',#{shopName,jdbcType=VARCHAR},'%')
+   		</if>
+   		<if test="wangwang!=null">
+   			and t.wangwang like concat('%',#{wangwang,jdbcType=VARCHAR},'%')
+   		</if>
+   		<if test="provinceName!=null">
+   			and t.provinceName like concat('%',#{provinceName,jdbcType=VARCHAR},'%')
+   		</if>
+   		<if test="searchKeyId!=null">
+   			and t.searchKeyId=#{searchKeyId,jdbcType=VARCHAR}
+   		</if>
+   </sql>
+   
+  
+</mapper>
