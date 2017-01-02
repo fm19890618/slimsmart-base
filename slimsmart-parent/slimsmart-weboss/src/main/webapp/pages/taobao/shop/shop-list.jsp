@@ -45,5 +45,61 @@
 	</form>
 	<div id="taobao-shop-grid"></div>
 	<div id="taobao-shop-add-dialog"></div>
+	
+	<div id="taobao-choose-column-dialog">
+		<form id="taobao-choose-column-form">
+			<table style="width: 100%; margin-bottom: 20px;">
+				<tr>
+					<td><input type="checkbox" name="shopName" checked></td>
+					<td>店铺名称</td>
+					<td><input type="checkbox" name="shopUrl" checked></td>
+					<td>店铺地址</td>
+					<td><input type="checkbox" name="telphone" checked></td>
+					<td>联系电话</td>
+				</tr>
+				<tr>
+					<td colspan="6">&nbsp;</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" name="wangwang" checked></td>
+					<td>旺旺id</td>
+					<td><input type="checkbox" name="sellWhat" checked></td>
+					<td>主营</td>
+					<td><input type="checkbox" name="sellNum" checked></td>
+					<td>销量</td>
+				</tr>
+				<tr>
+					<td colspan="6">&nbsp;</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" name="productNum" checked></td>
+					<td>宝贝数量</td>
+					<td><input type="checkbox" name="provinceName" checked></td>
+					<td>省份</td>
+					<td><input type="checkbox" name="level" checked></td>
+					<td>店铺等级</td>
+				</tr>
+				<tr>
+					<td colspan="6">&nbsp;</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" name="goodratePercent" checked></td>
+					<td>好评率</td>
+					<td><input type="checkbox" name="hasphone" checked></td>
+					<td>去除不含电话</td>
+					<td></td>
+					<td><input type="hidden" name="searchKeyId" id="searchKeyIdColumn"/></td>
+				</tr>
+				<tr>
+					<td colspan="6">&nbsp;</td>
+				</tr>
+				<tr>
+					<td colspan="6" align="center">
+						<a href="#" class="easyui-linkbutton" id="taobao-shop-export-download" style="width:80px;">确定</a>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
 </body>
 </html>

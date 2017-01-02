@@ -243,7 +243,20 @@
 			$("#searchKeyId").attr("value",id);
 			$("#taobao-shop-list-search-btn").click();
 			$("#taobao-shop-export").show();
-			$("#taobao-shop-export").attr("href",REQUEST_URL+"/taobao/shop/exportExcel.do?searchKeyId="+$("#searchKeyId").val());
+			$("#taobao-shop-export").attr("href","javascript:backUserList.chooseExportColumn(\""+$("#searchKeyId").val()+"\")");
+		},
+		chooseExportColumn: function(id){
+			$('#taobao-choose-column-dialog').dialog({
+				title: '选择导出项目',
+			    width: 400,
+			    height: 240
+			});
+			$('#searchKeyIdColumn').attr('value',id);
+		},
+		downloadExcel: function(){
+			var value = $('#taobao-choose-column-form').serialize();
+			window.location.href=REQUEST_URL+'/taobao/shop/exportExcel.do?'+value;
+			$('#taobao-choose-column-dialog').dialog('close')
 		},
 		//加载历史搜索的关键词
 		loadHistorySearchKey: function(){
@@ -271,8 +284,8 @@
 		 window.backUserList = new BackUserList();
 		 backUserList.loadHistorySearchKey();
 		 
-		 $("#taobao-shop-export").bind('click',function(){
-			 backUserList.exportExcel();
+		 $("#taobao-shop-export-download").bind('click',function(){
+			 backUserList.downloadExcel();
 		 });
 		 $('#taobao-shop-search-key-btn').bind('click',function(){
 			 if(!$("#searchKey").val()){
@@ -298,6 +311,7 @@
 				    	 $.messager.error("操作失败");
 				     }    
 				});
-		 })
+		 });
+		 
 	});
 })();

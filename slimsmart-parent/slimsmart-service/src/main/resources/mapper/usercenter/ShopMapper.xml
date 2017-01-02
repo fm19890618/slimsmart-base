@@ -61,7 +61,7 @@
     </where>
   </select>
   
-  <select id="findLsit" resultMap="BaseResultMap" parameterType="map">
+  <select id="findList" resultMap="BaseResultMap" parameterType="map">
     select 
      <include refid="Base_Column_List" /> 
     
@@ -69,7 +69,7 @@
     <where>
     	<include refid="selectWhereClause" />
     </where>
-    order by t.createTime desc
+    order by t.telphone desc
   </select>
   
   <select id="findPage" resultMap="BaseResultMap" parameterType="map">

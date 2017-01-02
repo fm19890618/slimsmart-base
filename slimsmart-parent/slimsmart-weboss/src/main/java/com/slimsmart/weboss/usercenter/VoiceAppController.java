@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.slimsmart.api.bus.voice.VoiceLocationService;
 import com.slimsmart.api.bus.voice.VoiceService;
+import com.slimsmart.api.usercenter.BackUserService;
 import com.slimsmart.common.model.VoiceQueryVo;
 import com.slimsmart.common.util.UUID;
 import com.slimsmart.model.bus.voice.Voice;
 import com.slimsmart.model.bus.voice.VoiceLocation;
+import com.slimsmart.model.usercenter.BackUser;
 
 import net.sf.json.JSONObject;
 
@@ -33,6 +35,8 @@ public class VoiceAppController{
 	private VoiceService voiceService;
 	@Autowired
 	private VoiceLocationService voiceLocationService;
+	@Autowired
+	private BackUserService userService;
 	
 	
 	@RequestMapping("location")
@@ -58,6 +62,38 @@ public class VoiceAppController{
 		return voiceService.getLocationAndVoice(vo);
 	}
 	
+	@RequestMapping("loginOrRegist")
+	@ResponseBody
+	public Map<String,String> loginOrRegist(HttpServletRequest request){
+		Map<String,String> json = new HashMap<String,String>();
+		try {
+			Map<String,String> map = showParams(request);
+			String userName = map.get("loginName");
+			String password = map.get("password");
+			json.put("loginName", userName);
+			if(map.get("isRegist").toString().equals("0")){//登录
+				BackUser en = userService.getBackUserByLoginName(userName);
+				if(en.getPassword().equals(password)){
+					json.put("isok", "1");
+				}else{
+					json.put("isok", "0");
+				}
+			}else if(map.get("isRegist").toString().equals("1")){//注册
+				BackUser bu = new BackUser();
+				bu.setLoginName(userName);
+				bu.setPassword(password);
+				bu.setStatus("0");
+				userService.insert(bu);
+				json.put("isok", "3");
+			}
+		} catch (Exception e) {
+			json.put("isok", "0");
+		}
+		
+		
+		
+		return new JSONObject().fromObject(json);
+	}
 	
 	public static void main(String[] args) {
 		//getVoiceArr("");
