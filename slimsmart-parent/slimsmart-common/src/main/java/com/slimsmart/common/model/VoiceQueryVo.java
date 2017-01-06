@@ -27,8 +27,18 @@ public class VoiceQueryVo implements Serializable{
 	//是否是个体声暴露数据
 	private int isTask;
 
+	private String createDateStr;
 	
 	
+	
+	public String getCreateDateStr() {
+		return createDateStr;
+	}
+
+	public void setCreateDateStr(String createDateStr) {
+		this.createDateStr = createDateStr;
+	}
+
 	public String getUserId() {
 		return userId;
 	}

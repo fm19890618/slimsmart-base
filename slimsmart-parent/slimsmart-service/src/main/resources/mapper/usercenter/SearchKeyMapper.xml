@@ -31,7 +31,7 @@
      <include refid="Base_Column_List" />
      from wbl_search_key t
     
-    order by t.createTime desc limit 0,30
+    order by t.createTime desc limit 0,50
   </select>
   
    

@@ -59,7 +59,26 @@ public class VoiceAppController{
 	@RequestMapping("getVoiceLocationInfo")
 	@ResponseBody
 	public Map<String,Object> getVoiceLocationInfo(HttpServletRequest request,VoiceQueryVo vo){
+		System.out.println("============="+vo.getIsRelease());
 		return voiceService.getLocationAndVoice(vo);
+	}
+	
+	@RequestMapping("releaseVoice")
+	@ResponseBody
+	public Map<String,Object> releaseVoice(HttpServletRequest request,String id,String delete){
+		Map<String,Object> map = new HashMap<String,Object>();
+		try {
+			if(delete.equals("1")){
+				voiceService.deleteVoice(id);
+			}else{
+				voiceService.releaseVoice(id);
+			}
+			map.put("isok","1");
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("isok","0");
+		}
+		return map;
 	}
 	
 	@RequestMapping("loginOrRegist")
@@ -95,8 +114,21 @@ public class VoiceAppController{
 		return new JSONObject().fromObject(json);
 	}
 	
+	
+	@RequestMapping("getLineChartData")
+	@ResponseBody
+	public String getLineChartData(String userId,String time){
+		String result = voiceService.getLineChartData("03edbdea47fc423e8d2bb5ae31b4b907",time);
+		System.out.println("统计结果========="+result);
+		return result.substring(0, result.length()-1);
+	}
+	
+	
+	
+	
 	public static void main(String[] args) {
 		//getVoiceArr("");
+		System.out.println(0/0);
 	}
 	public Voice getVoiceArr(String str){
 		//str = "12.041201,18.0618,22.922562,22.922562,24.608978,,";

@@ -9,4 +9,10 @@ import com.slimsmart.model.bus.voice.Voice;
 
 public interface VoiceService extends BaseService<Voice> {
 	public Map<String,Object> getLocationAndVoice(VoiceQueryVo vo);
+	
+	public String getLineChartData(String userId,String time);
+	
+	public void releaseVoice(String id);
+	
+	void deleteVoice(String id);
 }

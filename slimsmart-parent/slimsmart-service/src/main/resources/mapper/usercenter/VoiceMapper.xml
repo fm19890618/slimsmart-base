@@ -44,7 +44,7 @@
     </if>
   </select>
   <select id="selectVoiceAndLocation" resultType="java.util.HashMap" parameterType="com.slimsmart.common.model.VoiceQueryVo">
-  	select vl.id id,vl.lat lat,vl.lon lon,vl.addr addr,vl.location_desc locationDesc,
+  	select vl.id id,v.id vid,vl.lat lat,vl.lon lon,vl.addr addr,vl.location_desc locationDesc,
   	v.min_voice_db minVoiceDb,v.voice_db voiceDb,v.max_voice_db maxVoiceDb,v.id voiceId,v.is_task isTask,v.is_release isRelease 
   	from t_bus_voice v,t_bus_voice_location vl where v.location_id = vl.id 
   	and v.is_task = #{isTask,jdbcType=INTEGER} and v.is_release = #{isRelease,jdbcType=INTEGER} 
@@ -61,6 +61,40 @@
     
   </select>
   
+  <select id="singleTaskDay" resultType="java.util.HashMap" parameterType="com.slimsmart.common.model.VoiceQueryVo">
+  	select id,MIN(create_date) time FROM t_bus_voice where is_task=1  
+  	<if test="userId != null">
+      and user_id = #{userId,jdbcType=VARCHAR}
+    </if>
+    GROUP BY DATE_FORMAT(create_date,'%Y-%m-%d')  
+  </select>
+  
+   <select id="selectLineChartData" resultMap="BaseResultMap" parameterType="com.slimsmart.common.model.VoiceQueryVo">
+   	select id,min_voice_db, voice_db,max_voice_db, user_id, location_id, create_date from t_bus_voice
+   	where 1=1
+   	<if test="userId != null">
+   		and user_id = #{userId,jdbcType=VARCHAR}
+   	</if>
+   	<if test="isTask != null">
+   		and is_task = #{isTask,jdbcType=INTEGER}
+   	</if>
+   	<if test="createDateStr != null">
+   		and DATE_FORMAT(create_date,'%Y-%m-%d') = #{createDateStr,jdbcType=VARCHAR}
+   	</if>
+   	order by create_date asc
+   </select>
    
+   <update id="releaseVoice" parameterType="com.slimsmart.model.bus.voice.Voice" >
+    update t_bus_voice
+    set is_release = 1
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="deleteVoice" parameterType="java.lang.String">
+  	delete from t_bus_voice where id=#{id,jdbcType=VARCHAR}
+  </update>
+  <update id="deleteLocation" parameterType="java.lang.String">
+  	delete from t_bus_voice_location where id=(select location_id from t_bus_voice where id=#{id,jdbcType=VARCHAR})
+  </update>
   
 </mapper>
