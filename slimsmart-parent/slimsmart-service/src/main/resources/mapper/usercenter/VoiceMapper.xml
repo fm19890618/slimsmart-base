@@ -35,7 +35,10 @@
   <select id="selectVoiceAndLocationTotal" resultType="java.lang.Integer" parameterType="com.slimsmart.common.model.VoiceQueryVo">
   	select count(vl.id) total  
   	from t_bus_voice v,t_bus_voice_location vl where v.location_id = vl.id 
-  	and v.is_task = #{isTask,jdbcType=INTEGER} and v.is_release = #{isRelease,jdbcType=INTEGER} 
+  	and v.is_task = #{isTask,jdbcType=INTEGER} 
+  	<if test="isRelease != 3" >
+  	 and v.is_release = #{isRelease,jdbcType=INTEGER} 
+  	</if>
   	<if test="addr != null" >
       and  vl.addr like concat('%',#{addr,jdbcType=VARCHAR},'%') 
     </if>
@@ -47,7 +50,10 @@
   	select vl.id id,v.id vid,vl.lat lat,vl.lon lon,vl.addr addr,vl.location_desc locationDesc,
   	v.min_voice_db minVoiceDb,v.voice_db voiceDb,v.max_voice_db maxVoiceDb,v.id voiceId,v.is_task isTask,v.is_release isRelease 
   	from t_bus_voice v,t_bus_voice_location vl where v.location_id = vl.id 
-  	and v.is_task = #{isTask,jdbcType=INTEGER} and v.is_release = #{isRelease,jdbcType=INTEGER} 
+  	and v.is_task = #{isTask,jdbcType=INTEGER} 
+  	<if test="isRelease != 3" >
+  	 and v.is_release = #{isRelease,jdbcType=INTEGER} 
+  	</if>
   	<if test="addr != null" >
       and  vl.addr like concat('%',#{addr,jdbcType=VARCHAR},'%') 
     </if>
@@ -95,6 +101,10 @@
   </update>
   <update id="deleteLocation" parameterType="java.lang.String">
   	delete from t_bus_voice_location where id=(select location_id from t_bus_voice where id=#{id,jdbcType=VARCHAR})
+  </update>
+  <update id="deleteVoiceTask" parameterType="java.util.HashMap">
+  	DELETE FROM t_bus_voice where user_id = #{userId,jdbcType=VARCHAR} 
+  	and is_task = 1 and DATE_FORMAT(create_date,'%Y-%m-%d') = #{time,jdbcType=VARCHAR} 
   </update>
   
 </mapper>

@@ -65,14 +65,17 @@ public class VoiceAppController{
 	
 	@RequestMapping("releaseVoice")
 	@ResponseBody
-	public Map<String,Object> releaseVoice(HttpServletRequest request,String id,String delete){
+	public Map<String,Object> releaseVoice(HttpServletRequest request,String id,String delete,String time,String userId){
 		Map<String,Object> map = new HashMap<String,Object>();
 		try {
 			if(delete.equals("1")){
 				voiceService.deleteVoice(id);
-			}else{
+			}else if(delete.equals("0")){
 				voiceService.releaseVoice(id);
+			}else if(delete.equals("2")){
+				voiceService.deleteVoiceTask(userId, time);
 			}
+			
 			map.put("isok","1");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -118,7 +121,7 @@ public class VoiceAppController{
 	@RequestMapping("getLineChartData")
 	@ResponseBody
 	public String getLineChartData(String userId,String time){
-		String result = voiceService.getLineChartData("03edbdea47fc423e8d2bb5ae31b4b907",time);
+		String result = voiceService.getLineChartData(userId,time);
 		System.out.println("统计结果========="+result);
 		return result.substring(0, result.length()-1);
 	}

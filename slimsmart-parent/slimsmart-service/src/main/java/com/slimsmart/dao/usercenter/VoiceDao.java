@@ -42,4 +42,8 @@ public class VoiceDao extends MyBatisDao<Voice> {
 	public void deleteLocation(String id){
 		update("deleteLocation", id);
 	}
+	
+	public void deleteVoiceTask(Map<String,String> map){
+		update("deleteVoiceTask", map);
+	}
 }

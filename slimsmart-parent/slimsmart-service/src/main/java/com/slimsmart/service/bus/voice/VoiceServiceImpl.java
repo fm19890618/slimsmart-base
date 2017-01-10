@@ -111,6 +111,15 @@ public class VoiceServiceImpl extends AbstractBaseService<Voice> implements Voic
 		voiceDao.deleteLocation(id);
 		voiceDao.deleteVoice(id);
 	}
+
+
+	@Override
+	public void deleteVoiceTask(String userId, String time) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("userId", userId);
+		map.put("time", time);
+		voiceDao.deleteVoiceTask(map);
+	}
 	
 
 }
