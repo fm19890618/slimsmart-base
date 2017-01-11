@@ -239,13 +239,35 @@
 				}
 			});
 		},
-		clickSearchHisKry:function(id){
+		clickSearchHisKry:function(id,name){
 			$("#searchKeyId").attr("value",id);
 			$("#taobao-shop-list-search-btn").click();
 			$("#taobao-shop-export").show();
+			$("#taobao-shop-list-delete-btn").html("删除"+name);
+			$("#taobao-shop-list-delete-btn").show();
+			$("#taobao-shop-list-delete-btn").attr("href","javascript:backUserList.deleteSearchKey(\""+$("#searchKeyId").val()+"\")");
 			$("#taobao-shop-export").attr("href","javascript:backUserList.chooseExportColumn(\""+$("#searchKeyId").val()+"\")");
 		},
+		deleteSearchKey: function(id){
+			$.ajax({
+				url : REQUEST_URL+"/taobao/shop/deleteSearchKey.do?id="+id,
+				type:'get',    
+			    cache:false,    
+			    dataType:'json',    
+			    success:function(data) {
+			    	if(data.isok=='yes'){
+			    		location.reload();
+			    	}else{
+			    		$.messager.error("操作失败");
+			    	}
+    			},    
+			     error : function() {    
+			    	 $.messager.error("操作失败");
+			     }    
+			});
+		},
 		chooseExportColumn: function(id){
+			$('#taobao-choose-column-dialog').show();
 			$('#taobao-choose-column-dialog').dialog({
 				title: '选择导出项目',
 			    width: 400,
@@ -268,7 +290,7 @@
 			    success:function(data) {
 			    	var html = '';
 			    	for(var i = 0 ; i < data.length; i ++){
-			    		html += '<a id="'+data[i].id+'" href="javascript:backUserList.clickSearchHisKry(\''+data[i].id+'\')">'+data[i].searchKey+'</a>&nbsp;'
+			    		html += '<a id="'+data[i].id+'" href="javascript:backUserList.clickSearchHisKry(\''+data[i].id+'\',\''+data[i].searchKey+'\')">'+data[i].searchKey+'</a>&nbsp;'
 			    	}
 			    	$("#search_key_list").children().remove();
 			    	$("#search_key_list").append(html);

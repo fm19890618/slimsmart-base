@@ -31,18 +31,17 @@ function login_submit(){
 		$("#password").focus();
 		return;
 	}
-	var kaptchaCode = $.trim($("#kaptchaCode").val());
+	/* var kaptchaCode = $.trim($("#kaptchaCode").val());
 	if(!kaptchaCode){
 		Toast.fail("验证码不能为空");
 		$("#kaptchaCode").focus();
 		return;
-	}
+	} */
 	$.ajax({
 		url : REQUEST_URL+"/loginAuth",
 		data:{
 			loginName : loginName ,
-			password : password ,
-			kaptchaCode : kaptchaCode
+			password : password 
 		},
 		type:'post',    
 	    cache:false,    
@@ -117,11 +116,11 @@ $(document).ready(function () {
 					</span></li>
 					<li>
 						<table >
-							<tr>
+							<%-- <tr>
 								<td><span class="left">验证码：</span></td>
 								<td><span><input id="kaptchaCode"  name="kaptchaCode" value="" type="text" class="txtCode" placeholder="请输入验证码"/></span></td>
 								<td><img src="<%=contextPath%>/kaptcha.jpg"  width="110" id="kaptchaCode-img" height="30" style="cursor: pointer;" onclick="this.src='<%=contextPath%>/kaptcha.jpg?t='+Math.random();" title="点击我，换一张" /></td>
-							</tr>
+							</tr> --%>
 						</table>
 					</li>
 					<li><span class="left">记住我：</span> <input id="rememberMe"

@@ -39,6 +39,7 @@
 					<a href="#" class="easyui-linkbutton" id="taobao-shop-export" style="width:80px;display:none;">导出</a>
 					<a href="#" class="easyui-linkbutton" id="taobao-shop-list-search-btn" data-options="iconCls:'icon-search'" style="width:80px">查询</a>
 					<a href="#" class="easyui-linkbutton" id="taobao-shop-list-reset-btn" data-options="iconCls:'icon-back'" style="width:80px">重置</a>
+					<a href="#" class="easyui-linkbutton" id="taobao-shop-list-delete-btn" style="display:none;">删除</a>
 				 </td>
 			</tr>
 		</table>
@@ -46,7 +47,7 @@
 	<div id="taobao-shop-grid"></div>
 	<div id="taobao-shop-add-dialog"></div>
 	
-	<div id="taobao-choose-column-dialog">
+	<div id="taobao-choose-column-dialog" style="display:none;">
 		<form id="taobao-choose-column-form">
 			<table style="width: 100%; margin-bottom: 20px;">
 				<tr>

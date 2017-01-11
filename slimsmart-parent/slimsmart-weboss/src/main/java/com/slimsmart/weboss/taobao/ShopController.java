@@ -274,6 +274,19 @@ public class ShopController extends BaseController<Shop>{
         stream.close();  
 	}
 	
+	
+	@RequestMapping("deleteSearchKey")
+	@ResponseBody
+	public Map<String,String> deleteSearchKey(String id){
+		Map<String,String> map = new HashMap<String,String>();
+		try {
+			shopService.deleteShopAndSearchKey(id);
+			map.put("isok", "yes");
+		} catch (Exception e) {
+			map.put("isok", "no");
+		}
+		return map;
+	}
 
 	@Override
 	protected String getNameSpace() {

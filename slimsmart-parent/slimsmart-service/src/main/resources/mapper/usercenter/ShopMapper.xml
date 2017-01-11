@@ -82,8 +82,13 @@
     </where>
     order by t.createTime desc
   </select>
-  
-  
+  <update id="deleteSearchKey" parameterType="java.lang.String">
+  	delete from wbl_search_key where id=#{id,jdbcType=VARCHAR}
+  	
+  </update>
+  <update id="deleteShop" parameterType="java.lang.String">
+  	delete from wbl_shop_msg where searchKeyId=#{id,jdbcType=VARCHAR}
+  </update>
   <sql id="selectWhereClause">
    		<if test="shopName!=null">
    			and t.shopName like concat('%',#{shopName,jdbcType=VARCHAR},'%')

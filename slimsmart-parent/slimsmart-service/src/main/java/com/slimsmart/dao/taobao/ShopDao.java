@@ -14,4 +14,8 @@ public class ShopDao extends MyBatisDao<Shop> {
 		batchInsert("batchInsert", list);
 	}
 
+	public void deleteShopAndSearchKey(String id){
+		update("deleteSearchKey", id);
+		update("deleteShop", id);
+	}
 }

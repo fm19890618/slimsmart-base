@@ -42,5 +42,10 @@ public class ShopServiceImpl extends AbstractBaseService<Shop> implements ShopSe
 		}
 		return 0;
 	}
+	@Override
+	public void deleteShopAndSearchKey(String id) {
+		shopDao.deleteShopAndSearchKey(id);
+		
+	}
 
 }

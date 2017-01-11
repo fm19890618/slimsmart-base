@@ -61,15 +61,15 @@ public class BackLoginController {
 		//检查登录消息
 		String loginName = request.getParameter("loginName");
 		String password = request.getParameter("password");
-		String kaptchaCode = request.getParameter("kaptchaCode");
-		if(StringUtil.isBlank(loginName) || StringUtil.isBlank(password)  || StringUtil.isBlank(kaptchaCode) ){
+		//String kaptchaCode = request.getParameter("kaptchaCode");
+		if(StringUtil.isBlank(loginName) || StringUtil.isBlank(password)   ){
 			return new ResponseMsg().setCode(ServiceCode.FAULT.getCode()).setMessage("登录信息不能为空");
 		}
 		String sessionCode = (String)request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
-		if(!kaptchaCode.equals(sessionCode)){
-			logger.debug("kaptchaCode : {},sessionCode:{}",kaptchaCode,sessionCode);
-			return new ResponseMsg().setCode(ServiceCode.FAULT.getCode()).setMessage("您输入的验证码错误");
-		}
+//		if(!kaptchaCode.equals(sessionCode)){
+//			logger.debug("kaptchaCode : {},sessionCode:{}",kaptchaCode,sessionCode);
+//			return new ResponseMsg().setCode(ServiceCode.FAULT.getCode()).setMessage("您输入的验证码错误");
+//		}
 		BackUser backUser = backUserService.getBackUserByLoginName(loginName);
 		logger.debug("backUser : {}",backUser);
 		if(backUser==null){
