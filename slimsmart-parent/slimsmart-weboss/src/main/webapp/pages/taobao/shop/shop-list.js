@@ -246,7 +246,7 @@
 			$("#taobao-shop-list-delete-btn").html("删除"+name);
 			$("#taobao-shop-list-delete-btn").show();
 			$("#taobao-shop-list-delete-btn").attr("href","javascript:backUserList.deleteSearchKey(\""+$("#searchKeyId").val()+"\")");
-			$("#taobao-shop-export").attr("href","javascript:backUserList.chooseExportColumn(\""+$("#searchKeyId").val()+"\")");
+			$("#taobao-shop-export").attr("href","javascript:backUserList.chooseSingle(\""+$("#searchKeyId").val()+"\")");
 		},
 		deleteSearchKey: function(id){
 			$.ajax({
@@ -266,6 +266,10 @@
 			     }    
 			});
 		},
+		chooseSingle: function(id){
+			this.downAll = 0;
+			this.chooseExportColumn(id);
+		},
 		chooseExportColumn: function(id){
 			$('#taobao-choose-column-dialog').show();
 			$('#taobao-choose-column-dialog').dialog({
@@ -277,11 +281,15 @@
 		},
 		downloadExcel: function(){
 			var value = $('#taobao-choose-column-form').serialize();
-			window.location.href=REQUEST_URL+'/taobao/shop/exportExcel.do?'+value;
+			window.location.href=REQUEST_URL+'/taobao/shop/exportExcel.do?'+value+'&downAll='+this.downAll;
 			$('#taobao-choose-column-dialog').dialog('close')
+			this.downAll = 0;
 		},
+		//关键词key串
+		downAll: 0,
 		//加载历史搜索的关键词
 		loadHistorySearchKey: function(){
+			var _this = this;
 			$.ajax({
 				url : REQUEST_URL+"/taobao/shop/getListSearchKey.do",
 				type:'post',    
@@ -291,6 +299,7 @@
 			    	var html = '';
 			    	for(var i = 0 ; i < data.length; i ++){
 			    		html += '<a id="'+data[i].id+'" href="javascript:backUserList.clickSearchHisKry(\''+data[i].id+'\',\''+data[i].searchKey+'\')">'+data[i].searchKey+'</a>&nbsp;'
+			    		//_this.searchKeys += data[i].id+","
 			    	}
 			    	$("#search_key_list").children().remove();
 			    	$("#search_key_list").append(html);
@@ -307,7 +316,12 @@
 		 backUserList.loadHistorySearchKey();
 		 
 		 $("#taobao-shop-export-download").bind('click',function(){
+			 
 			 backUserList.downloadExcel();
+		 });
+		 $('#taobao-shop-export-all').bind('click',function(){
+			 backUserList.downAll = 1;
+			 backUserList.chooseExportColumn(backUserList.searchKeys);
 		 });
 		 $('#taobao-shop-search-key-btn').bind('click',function(){
 			 if(!$("#searchKey").val()){

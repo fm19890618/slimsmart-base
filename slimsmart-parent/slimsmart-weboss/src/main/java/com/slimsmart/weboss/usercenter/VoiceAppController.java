@@ -151,11 +151,11 @@ public class VoiceAppController{
 		voice.setMinVoiceDb(Integer.parseInt(df.format(Collections.min(dbList))));
 		voice.setVoiceDb(Integer.parseInt(df.format(sum/dbList.size())));
 		voice.setId(UUID.getUUID());
-		if(str.length() <= 20480){
-			voice.setVoiceStr(str);
-		}else{
-			voice.setVoiceStr("it's too long");
-		}
+//		if(str.length() <= 20480){
+//			voice.setVoiceStr(str);
+//		}else{
+//			voice.setVoiceStr("it's too long");
+//		}
 		//System.out.println(voice);
 		return voice;
 	}

@@ -36,6 +36,7 @@
 			<tr>
 				<td colspan="6">&nbsp;</td>
 				<td class="tc" colspan="2">
+					<a href="#" class="easyui-linkbutton" id="taobao-shop-export-all" style="width:80px;">一键导出</a>
 					<a href="#" class="easyui-linkbutton" id="taobao-shop-export" style="width:80px;display:none;">导出</a>
 					<a href="#" class="easyui-linkbutton" id="taobao-shop-list-search-btn" data-options="iconCls:'icon-search'" style="width:80px">查询</a>
 					<a href="#" class="easyui-linkbutton" id="taobao-shop-list-reset-btn" data-options="iconCls:'icon-back'" style="width:80px">重置</a>

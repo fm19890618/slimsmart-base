@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,11 +81,21 @@ public class ShopController extends BaseController<Shop>{
 	}
 	
 	@RequestMapping("exportExcel")
-	public void exportExcel(HttpServletRequest request,HttpServletResponse response,String searchKeyId,Shop shop,String hasphone) throws Exception{
-		
-		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("searchKeyId", searchKeyId);
-		List<Shop> list = shopService.findList(map);
+	public void exportExcel(HttpServletRequest request,HttpServletResponse response,String searchKeyId,Shop shop,String hasphone,Integer downAll) throws Exception{
+		List<Shop> list = new ArrayList<Shop>();
+		if(downAll == 1){
+			List<SearchKey> keys = searchKeyService.findList(null);
+			Map<String,Object> map = new HashMap<String,Object>();
+			for (int i = 0; i < keys.size(); i++) {
+				map.put("searchKeyId", keys.get(i).getId());
+				List<Shop> shops = shopService.findList(map);
+				list.addAll(shops);
+			}
+		}else{
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("searchKeyId", searchKeyId);
+			list = shopService.findList(map);
+		}
 		
 		
 		String fileName = request.getParameter("f");  
@@ -101,7 +112,11 @@ public class ShopController extends BaseController<Shop>{
             File f = new File(rootpath + fileName);  
             response.setContentType("application/x-excel");  
             response.setCharacterEncoding("UTF-8");  
-            response.setHeader("Content-Disposition", "attachment;filename="+new String((list.get(0).getSearchKey()+".xlsx").getBytes("gbk"),"iso-8859-1"));  
+            if(downAll == 1){
+            	response.setHeader("Content-Disposition", "attachment;filename="+new String(("一键导出.xlsx").getBytes("gbk"),"iso-8859-1")); 
+            }else{
+            	response.setHeader("Content-Disposition", "attachment;filename="+new String((list.get(0).getSearchKey()+".xlsx").getBytes("gbk"),"iso-8859-1"));  
+            }
             response.setHeader("Content-Length",String.valueOf(f.length()));  
             in = new BufferedInputStream(new FileInputStream(f));  
             out = new BufferedOutputStream(response.getOutputStream());  
