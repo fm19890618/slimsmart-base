@@ -15,4 +15,6 @@ public interface VoiceService extends BaseService<Voice> {
 	public void releaseVoice(String id);
 	
 	void deleteVoice(String id);
+	
+	void deleteVoiceTask(String userId,String time);
 }

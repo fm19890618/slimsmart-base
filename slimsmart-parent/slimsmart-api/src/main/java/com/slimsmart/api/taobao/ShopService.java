@@ -8,5 +8,7 @@ import com.slimsmart.model.taobao.Shop;
 public interface ShopService extends BaseService<Shop>{
 	
 	int getShopListData(String keyword) throws ParserException;
+	
+	void deleteShopAndSearchKey(String id);
 
 }
