@@ -36,7 +36,7 @@
 	</bean>
 	
 	<bean name="backLoginFiler"  class="com.slimsmart.weboss.common.BackLoginFiler">
-		<property name="excludeUrl" value="/error/*;/images/*;/css/*;/plugins/*;*/location.do;/getVoiceLocationInfo.do;/taobao/*;/loginOrRegist.do;/getLineChartData.do;/releaseVoice.do" />
+		<property name="excludeUrl" value="/error/*;/images/*;/css/*;/plugins/*;*/location.do;/getVoiceLocationInfo.do;/taobao/*;/loginOrRegist.do;/getLineChartData.do;/releaseVoice.do;/loan/*" />
 	</bean>
 	
 	<!-- 加载功能插件 -->

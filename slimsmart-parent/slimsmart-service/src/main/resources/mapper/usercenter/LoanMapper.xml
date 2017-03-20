@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slimsmart.model.honglin.Loan" >
+  <resultMap id="BaseResultMap" type="com.slimsmart.model.honglin.Loan" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="applyNum" property="applyNum" jdbcType="BIGINT" />
+    <result column="rate" property="rate" jdbcType="VARCHAR" />
+    <result column="logoUrl" property="logoUrl" jdbcType="VARCHAR" />
+    <result column="tapUrl" property="tapUrl" jdbcType="VARCHAR" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id,name, description,applyNum, rate, logoUrl, tapUrl, remark1, remark2, remark3
+  </sql>
+  
+  <select id="get" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_loan_list
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+   
+    <select id="findList" resultMap="BaseResultMap" parameterType="map">
+    select 
+     <include refid="Base_Column_List" /> 
+    
+    from t_loan_list t
+    
+    order by t.create_date desc
+  </select>
+  
+  <insert id="insert" parameterType="com.slimsmart.model.honglin.Loan" >
+    insert into t_loan_list (id, name, description, 
+      applyNum, rate, logoUrl, tapUrl, 
+      remark1, remark2,remark3,create_date)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{applyNum,jdbcType=BIGINT}, #{rate,jdbcType=VARCHAR}, #{logoUrl,jdbcType=VARCHAR}, #{tapUrl,jdbcType=VARCHAR}, 
+      #{remark1,jdbcType=VARCHAR},  #{remark2,jdbcType=VARCHAR},  #{remark3,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <update id="update" parameterType="com.slimsmart.model.honglin.Loan" >
+    update t_loan_list
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="applyNum != null" >
+        applyNum = #{applyNum,jdbcType=BIGINT},
+      </if>
+      <if test="rate != null" >
+        rate = #{rate,jdbcType=VARCHAR},
+      </if>
+      <if test="logoUrl != null" >
+        logoUrl = #{logoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="tapUrl != null" >
+        tapUrl = #{tapUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        remark3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+   <select id="count" resultType="long" parameterType="map">
+    select count(*) from t_loan_list t
+  </select>
+  
+  <select id="findPage" resultMap="BaseResultMap" parameterType="map">
+    select 
+     <include refid="Base_Column_List" />
+    from t_loan_list t 
+    order by t.create_date desc
+  </select>
+  
+</mapper>

@@ -1,20 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%
-String contextPath = request.getContextPath();
-%>
 <!DOCTYPE html>
 <html>
 <head lang="en">
     <meta http-equiv="content-type" content="text/html;charset=UTF-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-    <link type="text/css" rel="stylesheet" href="<%=contextPath%>/pages/honglin/css/swiper-3.4.1.min.css">
-    <script type="text/javascript" src="<%=contextPath%>/pages/honglin/js/jquery-1.11.3.js"></script>
-    <script type="text/javascript" src="<%=contextPath%>/pages/honglin/js/swiper-3.4.1.min.js"></script>
-    <script type="text/javascript" src="<%=contextPath%>/pages/honglin/js/vue.js"></script>
-    <script type="text/javascript"> 
-    	var baseUrl = "<%=contextPath%>";
-    </script>
+    <link type="text/css" rel="stylesheet" href="css/swiper-3.4.1.min.css">
+    <script type="text/javascript" src="js/jquery-1.11.3.js"></script>
+    <script type="text/javascript" src="js/swiper-3.4.1.min.js"></script>
     <title>在线审核 3分钟放款</title>
     <style>
         .swiper-container {
@@ -68,59 +59,44 @@ String contextPath = request.getContextPath();
     </style>
 </head>
 <body>
-<div id="app">
     <div class="swiper-container">
         <div class="swiper-wrapper">
-            <div class="swiper-slide" style="width: 1080px;background-image: url('<%=contextPath%>/pages/honglin/img/banner/banner1.jpg')"></div>
-            <div class="swiper-slide" style="width: 1080px;background-image: url('<%=contextPath%>/pages/honglin/img/banner/banner1.jpg')"></div>
-            <div class="swiper-slide" style="width: 1080px;background-image: url('<%=contextPath%>/pages/honglin/img/banner/banner1.jpg')"></div>
+            <div class="swiper-slide">图一</div>
+            <div class="swiper-slide">图二</div>
+            <div class="swiper-slide">图三</div>
         </div>
         <!-- 如果需要分页器 -->
         <div class="swiper-pagination"></div>
 
         <!-- 如果需要导航按钮 -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
     </div>
-    <div class="moveInfo"><img src="<%=contextPath%>/pages/honglin/img/jiekuan.png" alt="" width="8%" style="margin-right:3%;vertical-align: middle"/>资料少，审核快，还款灵活</div>
+    <div class="moveInfo"><img src="css/add_05.png" alt="不支持此图片格式" width="8%" style="margin-right:3%;vertical-align: middle"/>资料少，审核快，还款灵活</div>
     <div style="padding: 0 10px;">
         <ul class="viewInfos">
-            <li v-for="item in listData" v-on:click="greet">
-                <img v-bind:src="item.logoUrl"  width="80px"  alt="" />
+            <li>
+                <img src="css/add_05.png"  width="80px"  alt="不支持格式的图片" />
                 <span style="" >
                     <dl>
-                        <dt>{{ item.name }}</dt>
+                        <dt>用钱宝-千元借款神器</dt>
                         <dd>借钱0门槛借钱0门槛借钱0门槛借钱0门槛借钱0门槛借钱0门槛</dd>
-                        <dd><span>申请人数<span>{{item.applyNum}}</span>人</span><span>&nbsp;<span>{{item.rate}}</span></span></dd>
+                        <dd><span>申请人数<span>132434</span>人</span><span>日利率<span>0.98%</span></span></dd>
                     </dl>
                 </span>
             </li>
+            <li>
+
+            </li>
+            <li>
+
+            </li>
+            <li>
+
+            </li>
         </ul>
     </div>
-</div>    
     <script>
-	    var app = new Vue({
-    	  el: '#app',
-    	  created:function(){
-			  var _this = this;    		  
-    		  $.ajax({
-    			  type: "GET",
-    			  url: baseUrl+"/loan/getLoanList.do",
-    			  dataType: "json",
-    			  success: function(res){
-    				  //console.log(_this);
-    				 _this.listData = res.result;
-    			  }
-    		  });
-    	  },
-    	  data: {
-    	    listData: []
-    	  },
-    	  methods:{
-    		  greet: function(){
-    			  window.location.href = baseUrl+"/loan/register.do";
-    		  }
-    	  }
-    	})
-    	
         var mySwiper = new Swiper ('.swiper-container', {
             direction: 'horizontal',
             loop: true,
