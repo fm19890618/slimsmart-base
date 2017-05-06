@@ -83,7 +83,7 @@ String contextPath = request.getContextPath();
     <div class="moveInfo"><img src="<%=contextPath%>/pages/honglin/img/jiekuan.png" alt="" width="8%" style="margin-right:3%;vertical-align: middle"/>资料少，审核快，还款灵活</div>
     <div style="padding: 0 10px;">
         <ul class="viewInfos">
-            <li v-for="item in listData" v-on:click="greet">
+            <li v-for="item in listData" v-on:click="greet(item.tapUrl)">
                 <img v-bind:src="item.logoUrl"  width="80px"  alt="" />
                 <span style="" >
                     <dl>
@@ -115,8 +115,8 @@ String contextPath = request.getContextPath();
     	    listData: []
     	  },
     	  methods:{
-    		  greet: function(){
-    			  window.location.href = baseUrl+"/loan/register.do";
+    		  greet: function(url){
+    			  window.location.href = url;
     		  }
     	  }
     	})

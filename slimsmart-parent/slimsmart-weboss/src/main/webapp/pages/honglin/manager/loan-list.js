@@ -68,6 +68,11 @@
 						align:"center",
 						width:400
 					},{
+						field:'remark1',
+						title:'排序',
+						align:"center",
+						width:100
+					},{
 						field:'operation',
 						title:'操作',
 						align:"center",

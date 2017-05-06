@@ -9,7 +9,7 @@
     <result column="rate" property="rate" jdbcType="VARCHAR" />
     <result column="logoUrl" property="logoUrl" jdbcType="VARCHAR" />
     <result column="tapUrl" property="tapUrl" jdbcType="VARCHAR" />
-    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark1" property="remark1" jdbcType="INTEGER" />
     <result column="remark2" property="remark2" jdbcType="VARCHAR" />
     <result column="remark3" property="remark3" jdbcType="VARCHAR" />
      <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
@@ -32,7 +32,7 @@
     
     from t_loan_list t
     
-    order by t.create_date desc
+    order by remark1
   </select>
   
   <insert id="insert" parameterType="com.slimsmart.model.honglin.Loan" >
@@ -86,7 +86,7 @@
     select 
      <include refid="Base_Column_List" />
     from t_loan_list t 
-    order by t.create_date desc
+    order by t.remark1
   </select>
   
 </mapper>

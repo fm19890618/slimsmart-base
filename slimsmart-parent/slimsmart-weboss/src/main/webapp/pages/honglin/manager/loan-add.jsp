@@ -38,9 +38,27 @@ String contextPath = request.getContextPath();
 				<td colspan="2">&nbsp;</td>
 			</tr>
 			<tr>
+				<td class="tr">链接：</td>
+				<td colspan="3" class="tl">
+					<input type="text" name="tapUrl"  class="easyui-textbox" data-options="width:400"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">&nbsp;</td>
+			</tr>
+			<tr>
 				<td class="tr">logo：</td>
 				<td colspan="3" class="tl">
 					<input class="easyui-filebox" name="file" label="width: 80%" labelPosition="top" style="width:80%">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">&nbsp;</td>
+			</tr>
+			<tr>
+				<td class="tr">排序：</td>
+				<td colspan="3" class="tl">
+					<input type="text" name="remark1"  class="easyui-textbox" data-options="width:400"/>
 				</td>
 			</tr>
 		</table>

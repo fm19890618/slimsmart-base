@@ -18,7 +18,7 @@ public class Loan extends BaseEntity {
 	
 	private String tapUrl;
 	
-	private String remark1;
+	private int remark1;
 	
 	private String remark2;
 	
@@ -72,11 +72,11 @@ public class Loan extends BaseEntity {
 		this.tapUrl = tapUrl;
 	}
 
-	public String getRemark1() {
+	public int getRemark1() {
 		return remark1;
 	}
 
-	public void setRemark1(String remark1) {
+	public void setRemark1(int remark1) {
 		this.remark1 = remark1;
 	}
 

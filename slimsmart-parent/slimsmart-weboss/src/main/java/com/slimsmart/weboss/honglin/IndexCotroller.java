@@ -31,7 +31,7 @@ public class IndexCotroller extends BaseController<Loan>{
 	@Override
 	public String index() {
 		
-		return getNameSpace()+"index";
+		return "/pages/honglinv2/index";
 	}
 	
 	@RequestMapping("getLoanList")
@@ -58,7 +58,7 @@ public class IndexCotroller extends BaseController<Loan>{
 				String fileName = file.getOriginalFilename();
 				String name = System.currentTimeMillis()+"."+fileName.substring(fileName.lastIndexOf(".")+1);
 				FileUtil.savePic(file.getInputStream(),name,strDirPath);
-				loan.setLogoUrl("/pages/honglin/upload/"+name);
+				loan.setLogoUrl("/slimsmart-weboss/pages/honglin/upload/"+name);
 			}
 		} catch (Exception e) {
 			res.setData("error");
@@ -79,7 +79,7 @@ public class IndexCotroller extends BaseController<Loan>{
 				String fileName = file.getOriginalFilename();
 				String name = System.currentTimeMillis()+"."+fileName.substring(fileName.lastIndexOf(".")+1);
 				FileUtil.savePic(file.getInputStream(),name,strDirPath);
-				loan.setLogoUrl("/pages/honglin/upload/"+name);
+				loan.setLogoUrl("/slimsmart-weboss/pages/honglin/upload/"+name);
 			}
 		} catch (Exception e) {
 			res.setData("error");
